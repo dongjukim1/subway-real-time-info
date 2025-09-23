@@ -6,7 +6,7 @@ import requests
 class SubwayAlertClient:
     DATA_TYPE = "JSON"
 
-    def __init__(self, base_url: str, api_key: str, data_type: str, timeout=10):
+    def __init__(self, base_url: str, api_key: str, timeout=10):
         self.base_url = base_url
         self.api_key = api_key
         self.timeout = timeout
@@ -17,7 +17,7 @@ class SubwayAlertClient:
         params = {
             "serviceKey": self.api_key,
             "srchStartNoftOcrnYmd": start_ymd,
-            "dataType": self.data_type,
+            "dataType": self.DATA_TYPE,
             "numOfRows": rows,
         }
         try:
