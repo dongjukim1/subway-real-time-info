@@ -17,14 +17,12 @@ class SubwayInfoClient:
     ):
         self.base_url = base_url
         self.api_key = api_key
-        self.data_type = self.DATA_TYPE
-        self.api_name = self.API_NAME
         self.start_index = start_index
         self.end_index = end_index
         self.timeout = timeout
 
     def fetch_infos(self) -> List[Dict[str, Any]]:
-        url = f"{self.base_url}/{self.api_key}/{self.data_type}/{self.api_name}/{self.start_index}/{self.end_index}"
+        url = f"{self.base_url}/{self.api_key}/{self.DATA_TYPE}/{self.API_NAME}/{self.start_index}/{self.end_index}"
 
         try:
             response = requests.get(url)
