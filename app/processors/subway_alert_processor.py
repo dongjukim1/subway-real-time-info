@@ -21,18 +21,18 @@ def normalize_alert_item(item: dict) -> dict:
     line_names = to_list(item.get("lineNmLst"))
     station_ids = to_list(item.get("stnSctnCdLst"))
     doc = {
-        "title": item.get("noftTtl"),
-        "description": item.get("noftCn"),
-        "event_time": item.get("noftOcrnDt"),
-        "line_name": line_names,
-        "station_id": station_ids,
-        "event_type": item.get("noftSeCd"),
-        "nonstop": item.get("nonstopYn"),
-        "direction": item.get("upbdnbSe"),
-        "incident_start": item.get("xcseSitnBgngDt"),
-        "incident_end": item.get("xcseSitnEndDt"),
-        "create_Ymd": item.get("crtrYmd"),
-        "create_time": datetime.now(timezone.utc).isoformat(),
+        "title": item.get("noftTtl"),  # title
+        "description": item.get("noftCn"),  # description
+        "event_time": item.get("noftOcrnDt"),  # event time
+        "line_name": line_names,  # line num
+        "station_id": station_ids,  # station id
+        "event_type": item.get("noftSeCd"),  # event type
+        "nonstop": item.get("nonstopYn"),  # nonstop station
+        "up_and_down": item.get("upbdnbSe"),  # up and down
+        "event_start": item.get("xcseSitnBgngDt"),  # event start time
+        "event_end": item.get("xcseSitnEndDt"),  # event end time
+        "updated_at": item.get("crtrYmd"),  # last updated time
+        "created_at": datetime.now(timezone.utc).isoformat(),  # es load time
         "_raw": {
             "stnSctnCdLst": item.get("stnSctnCdLst"),
             "lineNmLst": item.get("lineNmLst"),

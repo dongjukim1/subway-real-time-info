@@ -4,11 +4,13 @@ import requests
 
 
 class SubwayAlertClient:
+    DATA_TYPE = "JSON"
+
     def __init__(self, base_url: str, api_key: str, data_type: str, timeout=10):
         self.base_url = base_url
         self.api_key = api_key
-        self.data_type = data_type
         self.timeout = timeout
+        self._session = requests.session()
 
     def fetch_alerts(self, start_ymd: str, rows: int = 100) -> List[Dict[str, Any]]:
         url = f"{self.base_url}/getNtceList"
