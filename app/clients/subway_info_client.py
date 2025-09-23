@@ -28,4 +28,5 @@ class SubwayInfoClient:
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
+        print(data)
         return data["SearchSTNBySubwayLineInfo"].get("row", [])

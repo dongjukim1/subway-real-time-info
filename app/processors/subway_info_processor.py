@@ -33,24 +33,25 @@ def normalize_info_item(item: dict) -> dict:
 
     line_name = normalize_line_name(item.get("LINE_NUM"))
 
-    fr = item.get("FR_CODE")
-    codes = []
+    fr = (item.get("FR_CODE") or "").strip()
+    fr_norm = norm_code(fr) if fr else None
 
+    tokens = name_values[:]
     if fr:
-        fr_stripped = fr.strip()
-        if fr_stripped:
-            codes.append(fr_stripped)
-            codes.append(fr_stripped.lower())
-            codes.append(norm_code(fr_stripped))
-        station_search = uniq(name_values + codes)
+        tokens.append(fr)
+    if fr_norm:
+        tokens.append(fr_norm)
+
+    station_search = list(dict.fromkeys(tokens))
 
     doc = {
-        "station_id": item.get("STATION_CD"),
-        "station_name": names_obj,
-        "line_name": line_name,
-        "station_fr_code": uniq(codes),
-        "station_search": station_search,
-        "create_time": datetime.now(timezone.utc).isoformat(),
+        "station_id": item.get("STATION_CD"),  # station id
+        "station_name": names_obj,  # station name [ko, en, cn, jp]
+        "line_name": line_name,  # line name
+        "station_fr_id": fr,  # station fr id
+        "station_fr_id_norm": fr_norm,  # station fr id norm
+        "station_search": station_search,  # es search set
+        "created_at": datetime.now(timezone.utc).isoformat(),  # es load time
         "_raw": {"LINE_NUM": item.get("LINE_NUM")},
     }
 
