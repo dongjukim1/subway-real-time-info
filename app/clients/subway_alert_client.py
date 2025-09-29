@@ -21,7 +21,7 @@ class SubwayAlertClient:
             "numOfRows": rows,
         }
         try:
-            response = requests.get(url, params=params, timeout=self.timeout)
+            response = self._session.get(url, params=params, timeout=self.timeout)
             response.raise_for_status()
         except requests.Timeout:
             raise RuntimeError("Subway API request timed out.")

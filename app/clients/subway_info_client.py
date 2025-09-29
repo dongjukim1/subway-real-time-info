@@ -20,12 +20,13 @@ class SubwayInfoClient:
         self.start_index = start_index
         self.end_index = end_index
         self.timeout = timeout
+        self._session = requests.session()
 
     def fetch_infos(self) -> List[Dict[str, Any]]:
         url = f"{self.base_url}/{self.api_key}/{self.DATA_TYPE}/{self.API_NAME}/{self.start_index}/{self.end_index}"
 
         try:
-            response = requests.get(url)
+            response = self._session.get(url)
             response.raise_for_status()
         except requests.Timeout:
             raise RuntimeError("Subway API request timed out.")
